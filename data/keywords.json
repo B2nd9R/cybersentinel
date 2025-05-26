@@ -1,0 +1,34 @@
+{
+    "spam_keywords": [
+        "discord.gift",
+        "nitro free",
+        "steam free",
+        "@everyone free",
+        "@here nitro",
+        "giveaway bot"
+    ],
+    "phishing_keywords": [
+        "free robux",
+        "free vbucks",
+        "account generator",
+        "token grabber",
+        "password reset",
+        "login here"
+    ],
+    "scam_keywords": [
+        "quick money",
+        "double your money",
+        "crypto investment",
+        "bitcoin generator",
+        "paypal money",
+        "gift card generator"
+    ],
+    "safe_domains": [
+        "discord.com",
+        "discordapp.com",
+        "discord.gg",
+        "github.com",
+        "youtube.com",
+        "youtu.be"
+    ]
+}

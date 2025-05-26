@@ -1,0 +1,46 @@
+{
+    "threat_categories": {
+        "spam": {
+            "severity": 1,
+            "action": "delete",
+            "notify_mods": false
+        },
+        "phishing": {
+            "severity": 3,
+            "action": "delete_and_warn",
+            "notify_mods": true
+        },
+        "raid": {
+            "severity": 4,
+            "action": "ban",
+            "notify_mods": true
+        },
+        "malware": {
+            "severity": 5,
+            "action": "ban_and_report",
+            "notify_mods": true
+        }
+    },
+    "protection_levels": {
+        "1": {
+            "name": "أساسي",
+            "description": "حماية أساسية ضد التهديدات الشائعة",
+            "auto_action": false
+        },
+        "2": {
+            "name": "متوسط",
+            "description": "حماية متوسطة مع بعض الإجراءات التلقائية",
+            "auto_action": true
+        },
+        "3": {
+            "name": "عالي",
+            "description": "حماية قوية مع إجراءات تلقائية صارمة",
+            "auto_action": true
+        },
+        "4": {
+            "name": "قصوى",
+            "description": "أقصى مستوى حماية للحالات الحرجة",
+            "auto_action": true
+        }
+    }
+}
