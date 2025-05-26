@@ -2,7 +2,7 @@
 
 # 🛡️ CyberSentinel Discord Bot
 
-[![Discord](https://img.shields.io/discord/YOUR_SERVER_ID?color=7289DA&label=Discord&logo=discord&logoColor=white)](https://discord.gg/your-invite)
+[![Discord](https://img.shields.io/discord/YOUR_SERVER_ID?color=7289DA&label=Discord&logo=discord&logoColor=white)](https://discord.com/oauth2/authorize?client_id=1376263282305929256&permissions=268545222&integration_type=0&scope=bot)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
 [![Discord.py](https://img.shields.io/badge/Discord.py-2.0%2B-blue?logo=discord&logoColor=white)](https://discordpy.readthedocs.io/)
@@ -12,7 +12,7 @@
 
 ### 🤖 بوت حماية متقدم لسيرفرات الديسكورد مع ميزات أمان وتعليم شاملة
 
-[⬇️ تثبيت البوت](https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=8&scope=bot%20applications.commands) • [📚 التوثيق](docs/README.md) • [💬 سيرفر الدعم](https://discord.gg/your-invite)
+[⬇️ تثبيت البوت](https://discord.com/oauth2/authorize?client_id=1376263282305929256&permissions=268545222&integration_type=0&scope=bot) • [📚 التوثيق](docs/README.md) • [💬 سيرفر الدعم](https://discord.gg/your-invite)
 
 </div>
 
@@ -61,7 +61,7 @@
 
 1. نسخ المستودع:
 ```bash
-git clone https://github.com/yourusername/cybersentinel.git
+git clone https://github.com/B2nd9R/cybersentinel.git
 cd cybersentinel
 ```
 
