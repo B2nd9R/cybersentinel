@@ -70,7 +70,7 @@ class GeneralCommands(commands.Cog):
         await message.edit(content=None, embed=embed)
     
     @commands.command(name='info')
-    async def bot_info(self, ctx):
+    async def show_bot_info(self, ctx):
         """عرض معلومات عن البوت"""
         embed = discord.Embed(
             title="ℹ️ معلومات البوت",

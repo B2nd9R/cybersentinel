@@ -141,46 +141,54 @@ class SecurityBot(commands.Bot):
             if EventHandler:
                 self.event_handler = EventHandler(self)
             
-            # إضافة الأوامر
-            # في دالة _load_commands
-            async def _load_commands(self):
-                """تحميل أوامر البوت"""
-                try:
-                    # الأوامر العامة
-                    if GeneralCommands:
-                        await self.add_cog(GeneralCommands(self))
-                    
-                    # أوامر الإدارة
-                    if AdminCommands:
-                        await self.add_cog(AdminCommands(self))
-                    
-                    # أوامر الأمان
-                    if SecurityCommands:
-                        await self.add_cog(SecurityCommands(self))
-                    
-                    # أوامر البلاغات
-                    if ReportsCommands:
-                        await self.add_cog(ReportsCommands(self))
-                    
-                    logger.info("📝 تم تحميل الأوامر المتوفرة")
-                    
-                except Exception as e:
-                    logger.error(f"❌ خطأ في تحميل الأوامر: {e}")
+            # تحميل الأوامر
+            await self._load_commands()
             
-            def _start_background_tasks(self):
-                """بدء المهام الخلفية"""
-                try:
-                    # مهمة النصائح الأمنية
-                    if hasattr(self, 'security_tips_task'):
-                        self.security_tips_task.start()
-                    
-                    # مهمة تنظيف قاعدة البيانات
-                    if hasattr(self, 'cleanup_task'):
-                        self.cleanup_task.start()
-                    
-                    # مهمة تحديث الإحصائيات
-                    if hasattr(self, 'stats_update_task'):
-                        self.stats_update_task.start()
+            # بدء المهام الخلفية
+            self._start_background_tasks()
+            
+        except Exception as e:
+            logger.error(f"❌ خطأ في إعداد البوت: {e}")
+            # لا نرفع الخطأ لتجنب توقف البوت
+    
+    async def _load_commands(self):
+        """تحميل أوامر البوت"""
+        try:
+            # الأوامر العامة
+            if GeneralCommands:
+                await self.add_cog(GeneralCommands(self))
+            
+            # أوامر الإدارة
+            if AdminCommands:
+                await self.add_cog(AdminCommands(self))
+            
+            # أوامر الأمان
+            if SecurityCommands:
+                await self.add_cog(SecurityCommands(self))
+            
+            # أوامر البلاغات
+            if ReportsCommands:
+                await self.add_cog(ReportsCommands(self))
+            
+            logger.info("📝 تم تحميل الأوامر المتوفرة")
+            
+        except Exception as e:
+            logger.error(f"❌ خطأ في تحميل الأوامر: {e}")
+    
+    def _start_background_tasks(self):
+        """بدء المهام الخلفية"""
+        try:
+            # مهمة النصائح الأمنية
+            if hasattr(self, 'security_tips_task'):
+                self.security_tips_task.start()
+            
+            # مهمة تنظيف قاعدة البيانات
+            if hasattr(self, 'cleanup_task'):
+                self.cleanup_task.start()
+            
+            # مهمة تحديث الإحصائيات
+            if hasattr(self, 'stats_update_task'):
+                self.stats_update_task.start()
             
             logger.info("⚙️ تم بدء المهام الخلفية المتوفرة")
             
