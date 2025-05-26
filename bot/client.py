@@ -159,16 +159,27 @@ class SecurityBot(commands.Bot):
                 await self.add_cog(GeneralCommands(self))
             
             # أوامر الإدارة
-            if AdminCommands:
-                await self.add_cog(AdminCommands(self))
-            
-            # أوامر الأمان
-            if SecurityCommands:
-                await self.add_cog(SecurityCommands(self))
-            
-            # أوامر البلاغات
-            if ReportsCommands:
-                await self.add_cog(ReportsCommands(self))
+            async def setup_commands(self):
+                """تسجيل جميع الأوامر"""
+                try:
+                    if AdminCommands:
+                        await self.add_cog(AdminCommands(self))
+                        logger.info("✅ تم تحميل أوامر الإدارة")
+                        
+                    if SecurityCommands:
+                        await self.add_cog(SecurityCommands(self))
+                        logger.info("✅ تم تحميل أوامر الأمان")
+                        
+                    if ReportsCommands:
+                        await self.add_cog(ReportsCommands(self))
+                        logger.info("✅ تم تحميل أوامر التقارير")
+                        
+                    if GeneralCommands:
+                        await self.add_cog(GeneralCommands(self))
+                        logger.info("✅ تم تحميل الأوامر العامة")
+                        
+                except Exception as e:
+                    logger.error(f"❌ خطأ في تحميل الأوامر: {e}")
             
             logger.info("📝 تم تحميل الأوامر المتوفرة")
             

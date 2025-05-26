@@ -316,3 +316,20 @@ class LinkGuardian:
             'whitelisted_domains': len(self.whitelist),
             'blacklisted_domains': len(self.blacklist)
         }
+    
+    async def initialize(self):
+        """تهيئة نظام حماية الروابط"""
+        try:
+            # تحميل القوائم البيضاء والسوداء من قاعدة البيانات
+            self.whitelist = set(await db_manager.get_whitelisted_domains(0))  # 0 للقائمة العامة
+            self.blacklist = set()  # يمكن إضافة تحميل القائمة السوداء لاحقاً
+            
+            # تهيئة الـ API الخارجية
+            if Config.VIRUSTOTAL_API_KEY:
+                await self.vt_api.initialize()
+            
+            logger.info("✅ تم تهيئة نظام حماية الروابط بنجاح")
+            return True
+            
+        except Exception as e:
+            logger.error(f"❌ خطأ في تهيئة نظام حماية الروابط: {e}")

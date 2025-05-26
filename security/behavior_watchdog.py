@@ -372,3 +372,28 @@ class BehaviorWatchdog:
             
             if not activity['messages']:
                 del self.user_activity[user_id]
+
+    async def initialize(self):
+        """تهيئة نظام مراقبة السلوك"""
+        try:
+            # تحميل الإعدادات من قاعدة البيانات
+            self.user_activity.clear()
+            self.duplicate_messages.clear()
+            
+            # تحميل الأنماط المشبوهة من الملف
+            await self._load_suspicious_patterns()
+            
+            logger.info("✅ تم تهيئة نظام مراقبة السلوك بنجاح")
+            return True
+            
+        except Exception as e:
+            logger.error(f"❌ خطأ في تهيئة نظام مراقبة السلوك: {e}")
+            return False
+            
+    async def _load_suspicious_patterns(self):
+        """تحميل الأنماط المشبوهة من الملف"""
+        try:
+            # يمكن إضافة تحميل الأنماط من ملف تكوين أو قاعدة البيانات
+            pass
+        except Exception as e:
+            logger.error(f"خطأ في تحميل الأنماط المشبوهة: {e}")

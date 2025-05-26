@@ -15,7 +15,8 @@ from .general import GeneralCommands
 __all__ = [
     'SecurityCommands',
     'AdminCommands', 
-    'ReportsCommands'
+    'ReportsCommands',
+    'GeneralCommands'  # إضافة هذا السطر
 ]
 
 # معلومات الوحدة

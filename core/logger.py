@@ -63,6 +63,22 @@ class SecurityLogger:
             message += f"  {key}: {value}\n"
         
         self.logger.log(log_level, message)
+    
+    def error(self, message, *args, **kwargs):
+        """تسجيل رسالة خطأ"""
+        self.logger.error(message, *args, **kwargs)
+    
+    def warning(self, message, *args, **kwargs):
+        """تسجيل رسالة تحذير"""
+        self.logger.warning(message, *args, **kwargs)
+    
+    def info(self, message, *args, **kwargs):
+        """تسجيل رسالة معلومات"""
+        self.logger.info(message, *args, **kwargs)
+    
+    def debug(self, message, *args, **kwargs):
+        """تسجيل رسالة تصحيح"""
+        self.logger.debug(message, *args, **kwargs)
 
 # إنشاء مثيل عام
 logger = SecurityLogger()

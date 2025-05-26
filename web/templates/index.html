@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSentinel - لوحة التحكم</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="/static/img/Logo.png" alt="CyberSentinel" class="h-10 w-10 ml-2">
+                <span class="text-xl font-bold">CyberSentinel</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#" class="hover:text-gray-200">الرئيسية</a>
+                <a href="#" class="hover:text-gray-200">الإحصائيات</a>
+                <a href="#" class="hover:text-gray-200">التهديدات</a>
+                <a href="#" class="hover:text-gray-200">الإعدادات</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-8">
+        <!-- لوحة الإحصائيات -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-blue-100 rounded-full">
+                        <i class="fas fa-server text-blue-600"></i>
+                    </div>
+                    <div class="mr-4">
+                        <h3 class="text-gray-500 text-sm">السيرفرات</h3>
+                        <p class="text-2xl font-semibold" id="servers-count">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-green-100 rounded-full">
+                        <i class="fas fa-users text-green-600"></i>
+                    </div>
+                    <div class="mr-4">
+                        <h3 class="text-gray-500 text-sm">المستخدمين</h3>
+                        <p class="text-2xl font-semibold" id="users-count">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-red-100 rounded-full">
+                        <i class="fas fa-shield-alt text-red-600"></i>
+                    </div>
+                    <div class="mr-4">
+                        <h3 class="text-gray-500 text-sm">التهديدات المحظورة</h3>
+                        <p class="text-2xl font-semibold" id="threats-blocked">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-yellow-100 rounded-full">
+                        <i class="fas fa-search text-yellow-600"></i>
+                    </div>
+                    <div class="mr-4">
+                        <h3 class="text-gray-500 text-sm">عمليات الفحص</h3>
+                        <p class="text-2xl font-semibold" id="scans-count">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- التهديدات الأخيرة -->
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">التهديدات الأخيرة</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full table-auto">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="px-6 py-3 text-right">النوع</th>
+                            <th class="px-6 py-3 text-right">الخطورة</th>
+                            <th class="px-6 py-3 text-right">التاريخ</th>
+                            <th class="px-6 py-3 text-right">الإجراء</th>
+                        </tr>
+                    </thead>
+                    <tbody id="threats-table">
+                        <!-- سيتم ملء هذا الجزء بواسطة JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- حالة الحماية -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-semibold mb-4">حالة الحماية</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <div class="mb-4">
+                        <h3 class="text-gray-500 mb-2">الحالة</h3>
+                        <p class="text-lg font-semibold text-green-600" id="protection-status">نشط</p>
+                    </div>
+                    <div class="mb-4">
+                        <h3 class="text-gray-500 mb-2">المستوى</h3>
+                        <p class="text-lg font-semibold" id="protection-level">متقدم</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-gray-500 mb-2">الميزات المفعلة</h3>
+                    <ul class="space-y-2" id="enabled-features">
+                        <!-- سيتم ملء هذا الجزء بواسطة JavaScript -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

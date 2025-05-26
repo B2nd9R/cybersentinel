@@ -301,20 +301,57 @@ class DatabaseManager:
             )
         ''', (guild_id, today, guild_id, today, increment))
     
-    async def get_security_stats(self, guild_id: int, days: int = 7) -> List[Dict[str, Any]]:
-        """الحصول على إحصائيات الأمان لفترة معينة"""
-        since_date = datetime.now().date() - timedelta(days=days)
-        
-        async with aiosqlite.connect(self.db_path) as db:
-            async with db.execute('''
-                SELECT * FROM security_stats 
-                WHERE guild_id = ? AND stat_date >= ?
-                ORDER BY stat_date DESC
-            ''', (guild_id, since_date)) as cursor:
+    async def get_guild_security_stats(self, guild_id: int) -> dict:
+        """جلب إحصائيات الأمان للسيرفر"""
+        try:
+            async with aiosqlite.connect(self.db_path) as db:
+                # إحصائيات التهديدات
+                threats_cursor = await db.execute("""
+                    SELECT 
+                        COUNT(*) as total_threats,
+                        COUNT(CASE WHEN severity = 'high' THEN 1 END) as high_threats,
+                        COUNT(CASE WHEN status = 'resolved' THEN 1 END) as resolved_threats
+                    FROM threats
+                    WHERE guild_id = ?
+                """, (guild_id,))
+                threat_stats = await threats_cursor.fetchone()
                 
-                rows = await cursor.fetchall()
-                columns = [description[0] for description in cursor.description]
-                return [dict(zip(columns, row)) for row in rows]
+                # إحصائيات المستخدمين المحظورين
+                banned_cursor = await db.execute("""
+                    SELECT COUNT(*) 
+                    FROM user_danger_scores 
+                    WHERE guild_id = ? AND status = 'banned'
+                """, (guild_id,))
+                banned_count = (await banned_cursor.fetchone())[0]
+                
+                # إحصائيات الروابط المفحوصة
+                links_cursor = await db.execute("""
+                    SELECT 
+                        COUNT(*) as total_scanned,
+                        COUNT(CASE WHEN is_malicious THEN 1 END) as malicious_links
+                    FROM scanned_links
+                    WHERE id IN (SELECT DISTINCT url_hash FROM threats WHERE guild_id = ?)
+                """, (guild_id,))
+                link_stats = await links_cursor.fetchone()
+                
+                return {
+                    "total_threats": threat_stats[0],
+                    "high_threats": threat_stats[1],
+                    "resolved_threats": threat_stats[2],
+                    "banned_users": banned_count,
+                    "scanned_links": link_stats[0],
+                    "malicious_links": link_stats[1]
+                }
+        except Exception as e:
+            logger.error(f"خطأ في جلب إحصائيات الأمان: {e}")
+            return {
+                "total_threats": 0,
+                "high_threats": 0,
+                "resolved_threats": 0,
+                "banned_users": 0,
+                "scanned_links": 0,
+                "malicious_links": 0
+            }
     
     async def get_total_stats(self, guild_id: int) -> Dict[str, int]:
         """الحصول على إجمالي الإحصائيات"""
@@ -436,6 +473,27 @@ class DatabaseManager:
                 stats['monitored_users'] = (await cursor.fetchone())[0]
             
             return stats
+
+    async def get_whitelisted_domains(self, guild_id: int) -> List[str]:
+        """الحصول على قائمة المجالات الآمنة للسيرفر"""
+        async with aiosqlite.connect(self.db_path) as db:
+            # إنشاء الجدول إذا لم يكن موجوداً
+            await db.execute('''
+                CREATE TABLE IF NOT EXISTS whitelisted_domains (
+                    guild_id INTEGER,
+                    domain TEXT,
+                    added_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    PRIMARY KEY (guild_id, domain)
+                )
+            ''')
+            
+            # جلب المجالات الآمنة
+            async with db.execute('''
+                SELECT domain FROM whitelisted_domains
+                WHERE guild_id = ?
+            ''', (guild_id,)) as cursor:
+                rows = await cursor.fetchall()
+                return [row[0] for row in rows]
     
     async def close(self):
         """إغلاق الاتصال بقاعدة البيانات"""
