@@ -4,6 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
+from datetime import datetime
 import uvicorn
 import os
 
@@ -52,6 +53,3 @@ async def get_info():
         "version": "1.2.0",
         "status": "running"
     }
-
-if __name__ == "__main__":
-    uvicorn.run("app:app", host="0.0.0.0", port=8080)
