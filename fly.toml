@@ -1,23 +1,66 @@
-# fly.toml app configuration file generated for cybersentinel on 2025-05-28T11:50:28Z
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
+# fly.toml - إعدادات النشر المتقدمة لتطبيق CyberSentinel
+# تم التحديث في 2025-05-28
+# دليل الإعدادات: https://fly.io/docs/reference/configuration/
 
-app = 'cybersentinel'
-primary_region = 'fra'
+app = "cybersentinel"            # اسم التطبيق
+primary_region = "fra"           # المنطقة الأساسية للنشر: فرانكفورت (أوروبا)
+
+# قائمة بالمناطق الإضافية لتوزيع التطبيق حول العالم
+[deploy]
+  release_command = "flask db upgrade"    # أمر يُنفذ عند النشر (مثلاً ترقية قاعدة البيانات)
 
 [build]
+  dockerfile = "Dockerfile"
+  context = "."
 
 [http_service]
-  internal_port = 8080
-  force_https = true
-  auto_stop_machines = 'stop'
-  auto_start_machines = true
-  min_machines_running = 0
-  processes = ['app']
+  internal_port = 8080             # المنفذ الذي يستمع عليه التطبيق داخل الحاوية (Flask غالبًا على 8080)
+  force_https = true               # إجبار الاتصال عبر HTTPS فقط
+  auto_stop_machines = false       # منع إيقاف الآلات تلقائيًا (تشغيل دائم)
+  auto_start_machines = true       # تشغيل تلقائي عند الحاجة
+  min_machines_running = 2         # الحد الأدنى لتشغيل آلتين دائمًا
+  processes = ["app"]              # العملية التي تُشغل الخدمة
 
+  [http_service.concurrency]
+    type = "requests"              # إدارة عدد الطلبات بدلًا من عدد الاتصالات
+    soft_limit = 100               # عدد الطلبات المسموح بها قبل بدء توسيع الخدمة
+    hard_limit = 200               # الحد الأقصى قبل رفض الطلبات
+
+  [[http_service.checks]]
+    interval = "15s"               # تكرار فحص الصحة
+    timeout = "5s"                 # مهلة انتظار الاستجابة
+    grace_period = "10s"           # فترة السماح بعد التشغيل
+    method = "get"                 # نوع الطلب (GET)
+    path = "/health"               # مسار فحص الصحة (قم بإنشاء هذا المسار في Flask)
+    protocol = "http"
+
+# إعداد الأجهزة الافتراضية
 [[vm]]
-  memory = '1gb'
-  cpu_kind = 'shared'
-  cpus = 1
-  memory_mb = 1024
+  memory = "2gb"                   # ذاكرة RAM مخصصة
+  memory_mb = 2048
+  cpu_kind = "performance"         # معالج قوي لأداء ثابت
+  cpus = 2                         # عدد الأنوية (مناسب لتطبيقات تحليل أمني)
+
+# مناطق إضافية لتوزيع الخدمة عالمياً (اختياري)
+[[services]]
+  protocol = "tcp"
+  internal_port = 8080
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true
+
+  [[services.tcp_checks]]
+    interval = "10s"
+    timeout = "2s"
+    grace_period = "5s"
+
+# إعداد التوسعة اليدوية (اختياري إذا أردت التحكم في عدد النسخ يدويًا)
+[scale]
+  count = 3                        # عدد النسخ التي يتم تشغيلها دائمًا (يمكن تعديلها حسب الحمل)
