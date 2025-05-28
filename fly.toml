@@ -5,62 +5,58 @@
 app = "cybersentinel"            # اسم التطبيق
 primary_region = "fra"           # المنطقة الأساسية للنشر: فرانكفورت (أوروبا)
 
-# قائمة بالمناطق الإضافية لتوزيع التطبيق حول العالم
-[deploy]
-  release_command = "flask db upgrade"    # أمر يُنفذ عند النشر (مثلاً ترقية قاعدة البيانات)
-
 [build]
-  dockerfile = "Dockerfile"
-  context = "."
+  dockerfile = "Dockerfile"      # ملف بناء الحاوية
+  context = "."                  # مجلد البناء الحالي
 
 [http_service]
-  internal_port = 8080             # المنفذ الذي يستمع عليه التطبيق داخل الحاوية (Flask غالبًا على 8080)
-  force_https = true               # إجبار الاتصال عبر HTTPS فقط
-  auto_stop_machines = false       # منع إيقاف الآلات تلقائيًا (تشغيل دائم)
-  auto_start_machines = true       # تشغيل تلقائي عند الحاجة
-  min_machines_running = 2         # الحد الأدنى لتشغيل آلتين دائمًا
-  processes = ["app"]              # العملية التي تُشغل الخدمة
+  internal_port = 8080           # المنفذ داخل الحاوية الذي يستمع عليه التطبيق
+  force_https = true             # فرض استخدام HTTPS على كل الطلبات
+  auto_stop_machines = false     # منع إيقاف الماكينات تلقائيًا لضمان التشغيل المستمر
+  auto_start_machines = true     # تشغيل الماكينات تلقائيًا عند الحاجة
+  min_machines_running = 2       # الحد الأدنى من الماكينات التي يجب تشغيلها دائمًا (لتحاشي التكرار غير المرغوب)
+  processes = ["app"]            # العملية الأساسية التي تشغل الخدمة
 
   [http_service.concurrency]
-    type = "requests"              # إدارة عدد الطلبات بدلًا من عدد الاتصالات
-    soft_limit = 100               # عدد الطلبات المسموح بها قبل بدء توسيع الخدمة
-    hard_limit = 200               # الحد الأقصى قبل رفض الطلبات
+    type = "requests"            # قياس حمل الخدمة حسب عدد الطلبات المتزامنة
+    soft_limit = 100             # حد تفعيل التوسعة المرنة عند 100 طلب
+    hard_limit = 200             # الحد الأقصى للطلبات قبل رفض الطلبات الجديدة
 
   [[http_service.checks]]
-    interval = "15s"               # تكرار فحص الصحة
-    timeout = "5s"                 # مهلة انتظار الاستجابة
-    grace_period = "10s"           # فترة السماح بعد التشغيل
-    method = "get"                 # نوع الطلب (GET)
-    path = "/health"               # مسار فحص الصحة (قم بإنشاء هذا المسار في Flask)
-    protocol = "http"
+    interval = "15s"             # فحص صحة الخدمة كل 15 ثانية
+    timeout = "5s"               # مهلة الاستجابة قبل اعتباره فشل
+    grace_period = "10s"         # فترة السماح بعد بدء الخدمة قبل البدء بفحص الصحة
+    method = "get"               # نوع طلب الفحص هو GET
+    path = "/health"             # نقطة النهاية لفحص الصحة (يجب إضافتها في كود Flask)
+    protocol = "http"            # استخدام بروتوكول HTTP للفحص
 
-# إعداد الأجهزة الافتراضية
+# إعدادات الأجهزة الافتراضية للماكينات (VMs)
 [[vm]]
-  memory = "2gb"                   # ذاكرة RAM مخصصة
-  memory_mb = 2048
-  cpu_kind = "performance"         # معالج قوي لأداء ثابت
-  cpus = 2                         # عدد الأنوية (مناسب لتطبيقات تحليل أمني)
+  memory = "2gb"                 # حجم الذاكرة المخصصة لكل ماكينة
+  memory_mb = 2048               # نفس الحجم بالميجابايت (للتأكيد)
+  cpu_kind = "performance"       # معالج عالي الأداء
+  cpus = 2                      # عدد أنوية المعالج
 
-# مناطق إضافية لتوزيع الخدمة عالمياً (اختياري)
+# تكوين الخدمات (الشبكات والمنافذ)
 [[services]]
-  protocol = "tcp"
-  internal_port = 8080
-  processes = ["app"]
+  protocol = "tcp"               # بروتوكول النقل المستخدم TCP
+  internal_port = 8080           # المنفذ الداخلي داخل الحاوية
+  processes = ["app"]            # العمليات التي تخدم هذا البروتوكول
 
   [[services.ports]]
-    port = 443
-    handlers = ["tls", "http"]
+    port = 443                  # منفذ HTTPS الخارجي
+    handlers = ["tls", "http"]  # معالجة TLS و HTTP
 
   [[services.ports]]
-    port = 80
-    handlers = ["http"]
-    force_https = true
+    port = 80                   # منفذ HTTP الخارجي
+    handlers = ["http"]         # معالجة HTTP فقط
+    force_https = true          # إعادة توجيه طلبات HTTP تلقائياً إلى HTTPS
 
   [[services.tcp_checks]]
-    interval = "10s"
-    timeout = "2s"
-    grace_period = "5s"
+    interval = "10s"            # فحص الصحة على مستوى TCP كل 10 ثوانٍ
+    timeout = "2s"              # مهلة الاستجابة في هذا الفحص
+    grace_period = "5s"         # فترة السماح قبل بدء فحص TCP
 
-# إعداد التوسعة اليدوية (اختياري إذا أردت التحكم في عدد النسخ يدويًا)
+# إعداد التوسعة اليدوية (يمكنك التحكم بعدد النسخ المشغلة)
 [scale]
-  count = 3                        # عدد النسخ التي يتم تشغيلها دائمًا (يمكن تعديلها حسب الحمل)
+  count = 3                     # عدد النسخ التي تعمل دائمًا (يمكن تعديلها حسب الحمل)
