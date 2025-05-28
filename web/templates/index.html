@@ -1,122 +1,501 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberSentinel - لوحة التحكم</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="CyberSentinel - بوت حماية متقدم لسيرفرات Discord، يوفر حماية ذكية ومراقبة مستمرة وتقارير شاملة. يحمي سيرفرك من التهديدات والهجمات ويقدم تقارير أمنية شاملة.">
+    <meta name="keywords" content="Discord, بوت, حماية, أمن, سيرفر, مراقبة, تقارير, تعليم, حماية ديسكورد, بوت حماية, أمن سيرفرات, CyberSentinel, سايبر سنتينل">
+    <meta name="author" content="B2nd9R">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#00e4ff">
+
+    <meta property="og:title" content="CyberSentinel - الحارس الذكي لسيرفرك">
+    <meta property="og:description" content="بوت حماية متقدم لسيرفرات Discord، يوفر حماية ذكية ومراقبة مستمرة وتقارير شاملة">
+    <meta property="og:image" content="/static/img/Banner.png">
+    <meta property="og:type" content="website">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CyberSentinel - الحارس الذكي لسيرفرك">
+    <meta name="twitter:description" content="بوت حماية متقدم لسيرفرات Discord، يوفر حماية ذكية ومراقبة مستمرة وتقارير شاملة">
+    <meta name="twitter:image" content="/static/img/Banner.png">
+    <link rel="canonical" href="https://cybersentinel.com">
+    <title>CyberSentinel - الحارس الذكي لسيرفرك | بوت حماية Discord</title>
+    
+    <link rel="icon" type="image/png" href="/static/img/Logo.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="../static/css/style.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
-    <nav class="bg-blue-600 text-white shadow-lg">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center">
-                <img src="/static/img/Logo.png" alt="CyberSentinel" class="h-10 w-10 ml-2">
-                <span class="text-xl font-bold">CyberSentinel</span>
-            </div>
-            <div class="flex items-center space-x-4">
-                <a href="#" class="hover:text-gray-200">الرئيسية</a>
-                <a href="#" class="hover:text-gray-200">الإحصائيات</a>
-                <a href="#" class="hover:text-gray-200">التهديدات</a>
-                <a href="#" class="hover:text-gray-200">الإعدادات</a>
+
+<body>
+    <!-- خلفية الجسيمات -->
+    <div id="particles-bg"></div>
+    
+    <!-- شريط التنقل -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-content">
+                <div class="nav-brand">
+                    <a href="#" class="brand-link">
+                        <div class="logo-container">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <span class="brand-text">CyberSentinel</span>
+                    </a>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <a href="#features" class="nav-link">المميزات</a>
+                    <a href="#how-it-works" class="nav-link">كيف يعمل</a>
+                    <a href="#commands" class="nav-link">الأوامر</a>
+                    <a href="#about" class="nav-link">عن المشروع</a>
+                </div>
+                
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </nav>
 
-    <main class="container mx-auto px-6 py-8">
-        <!-- لوحة الإحصائيات -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="bg-white rounded-lg shadow p-6">
-                <div class="flex items-center">
-                    <div class="p-3 bg-blue-100 rounded-full">
-                        <i class="fas fa-server text-blue-600"></i>
+    <!-- القسم الرئيسي -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-icon">
+                    <i class="fas fa-shield-alt"></i>
+                    <div class="pulse-ring"></div>
+                </div>
+                
+                <h1 class="hero-title">
+                    <span class="text-gradient">CyberSentinel</span>
+                </h1>
+                
+                <h2 class="hero-subtitle">الحارس الذكي لسيرفرك على Discord</h2>
+                
+                <p class="hero-description">
+                    بوت حماية متقدم يوفر حماية ذكية 24/7، مراقبة مستمرة، وتعليم أمني شامل لسيرفرات Discord
+                </p>
+                
+                <div class="hero-actions">
+                    <a href="https://discord.com/oauth2/authorize?client_id=1376263282305929256&permissions=268545222&integration_type=0&scope=bot" 
+                       class="btn btn-primary">
+                        <i class="fab fa-discord"></i>
+                        أضف البوت الآن
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        <i class="fas fa-rocket"></i>
+                        اكتشف المميزات
+                    </a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="24">0</div>
+                        <div class="stat-label">حماية مستمرة</div>
                     </div>
-                    <div class="mr-4">
-                        <h3 class="text-gray-500 text-sm">السيرفرات</h3>
-                        <p class="text-2xl font-semibold" id="servers-count">0</p>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="99">0</div>
+                        <div class="stat-label">% كشف التهديدات</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="50">0</div>
+                        <div class="stat-label">+ أمر متقدم</div>
                     </div>
                 </div>
             </div>
-            <div class="bg-white rounded-lg shadow p-6">
-                <div class="flex items-center">
-                    <div class="p-3 bg-green-100 rounded-full">
-                        <i class="fas fa-users text-green-600"></i>
+            
+            <div class="hero-visual">
+                <div class="security-dashboard">
+                    <div class="dashboard-header">
+                        <div class="status-indicator active"></div>
+                        <span>نظام الحماية نشط</span>
                     </div>
-                    <div class="mr-4">
-                        <h3 class="text-gray-500 text-sm">المستخدمين</h3>
-                        <p class="text-2xl font-semibold" id="users-count">0</p>
+                    <div class="threat-meter">
+                        <div class="meter-circle">
+                            <div class="meter-fill"></div>
+                            <div class="meter-text">أمان عالي</div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="bg-white rounded-lg shadow p-6">
-                <div class="flex items-center">
-                    <div class="p-3 bg-red-100 rounded-full">
-                        <i class="fas fa-shield-alt text-red-600"></i>
-                    </div>
-                    <div class="mr-4">
-                        <h3 class="text-gray-500 text-sm">التهديدات المحظورة</h3>
-                        <p class="text-2xl font-semibold" id="threats-blocked">0</p>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-white rounded-lg shadow p-6">
-                <div class="flex items-center">
-                    <div class="p-3 bg-yellow-100 rounded-full">
-                        <i class="fas fa-search text-yellow-600"></i>
-                    </div>
-                    <div class="mr-4">
-                        <h3 class="text-gray-500 text-sm">عمليات الفحص</h3>
-                        <p class="text-2xl font-semibold" id="scans-count">0</p>
+                    <div class="security-metrics">
+                        <div class="metric">
+                            <i class="fas fa-eye"></i>
+                            <span>مراقبة نشطة</span>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-ban"></i>
+                            <span>حظر التهديدات</span>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-chart-line"></i>
+                            <span>تحليل ذكي</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- التهديدات الأخيرة -->
-        <div class="bg-white rounded-lg shadow p-6 mb-8">
-            <h2 class="text-xl font-semibold mb-4">التهديدات الأخيرة</h2>
-            <div class="overflow-x-auto">
-                <table class="min-w-full table-auto">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="px-6 py-3 text-right">النوع</th>
-                            <th class="px-6 py-3 text-right">الخطورة</th>
-                            <th class="px-6 py-3 text-right">التاريخ</th>
-                            <th class="px-6 py-3 text-right">الإجراء</th>
-                        </tr>
-                    </thead>
-                    <tbody id="threats-table">
-                        <!-- سيتم ملء هذا الجزء بواسطة JavaScript -->
-                    </tbody>
-                </table>
-            </div>
+        
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
         </div>
+    </section>
 
-        <!-- حالة الحماية -->
-        <div class="bg-white rounded-lg shadow p-6">
-            <h2 class="text-xl font-semibold mb-4">حالة الحماية</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <div class="mb-4">
-                        <h3 class="text-gray-500 mb-2">الحالة</h3>
-                        <p class="text-lg font-semibold text-green-600" id="protection-status">نشط</p>
+    <!-- المميزات الرئيسية -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">المميزات الرئيسية</h2>
+                <p class="section-subtitle">حماية شاملة ومتقدمة لسيرفرك</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
                     </div>
-                    <div class="mb-4">
-                        <h3 class="text-gray-500 mb-2">المستوى</h3>
-                        <p class="text-lg font-semibold" id="protection-level">متقدم</p>
-                    </div>
+                    <h3 class="feature-title">الحماية الذكية</h3>
+                    <p class="feature-description">كشف ومنع التهديدات تلقائياً مع نظام تحذيرات متقدم</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i>كشف الروابط المشبوهة</li>
+                        <li><i class="fas fa-check"></i>منع الهجمات والسبام</li>
+                        <li><i class="fas fa-check"></i>عزل المستخدمين المشبوهين</li>
+                        <li><i class="fas fa-check"></i>قفل السيرفر عند الطوارئ</li>
+                    </ul>
                 </div>
-                <div>
-                    <h3 class="text-gray-500 mb-2">الميزات المفعلة</h3>
-                    <ul class="space-y-2" id="enabled-features">
-                        <!-- سيتم ملء هذا الجزء بواسطة JavaScript -->
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">المراقبة والتحليل</h3>
+                    <p class="feature-description">مراقبة مستمرة وتحليل ذكي للأنشطة المشبوهة</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i>سجل تهديدات مفصل</li>
+                        <li><i class="fas fa-check"></i>تقارير دورية شاملة</li>
+                        <li><i class="fas fa-check"></i>إحصائيات تفاعلية</li>
+                        <li><i class="fas fa-check"></i>تحليل سلوك المستخدمين</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="feature-title">التوعية والتعليم</h3>
+                    <p class="feature-description">برامج تعليمية وتوعوية في الأمن السيبراني</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i>نصائح أمنية يومية</li>
+                        <li><i class="fas fa-check"></i>دروس تفاعلية</li>
+                        <li><i class="fas fa-check"></i>اختبارات أمنية</li>
+                        <li><i class="fas fa-check"></i>محتوى تعليمي متجدد</li>
                     </ul>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <script src="/static/js/dashboard.js"></script>
+    <!-- كيف يعمل -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">كيف يعمل CyberSentinel؟</h2>
+                <p class="section-subtitle">ثلاث خطوات بسيطة للحماية الكاملة</p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">أضف البوت</h3>
+                        <p class="step-description">انقر على زر "أضف البوت" واختر سيرفرك</p>
+                        <div class="step-icon">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step-connector"></div>
+                
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">الإعداد التلقائي</h3>
+                        <p class="step-description">استخدم الأمر !setup للإعداد السريع</p>
+                        <div class="step-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step-connector"></div>
+                
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">حماية فورية</h3>
+                        <p class="step-description">استمتع بالحماية المستمرة 24/7</p>
+                        <div class="step-icon">
+                            <i class="fas fa-shield"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الأوامر -->
+    <section id="commands" class="commands">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">أوامر البوت</h2>
+                <p class="section-subtitle">أوامر متقدمة لإدارة الأمان</p>
+            </div>
+            
+            <div class="commands-tabs">
+                <button class="tab-btn active" data-tab="admin">الإدارة</button>
+                <button class="tab-btn" data-tab="security">الأمان</button>
+                <button class="tab-btn" data-tab="reports">التقارير</button>
+            </div>
+            
+            <div class="commands-content">
+                <div class="tab-content active" id="admin">
+                    <div class="commands-grid">
+                        <div class="command-card">
+                            <div class="command-header">
+                                <code>!setup</code>
+                                <span class="command-badge">أساسي</span>
+                            </div>
+                            <p>إعداد البوت في السيرفر تلقائياً</p>
+                        </div>
+                        
+                        <div class="command-card">
+                            <div class="command-header">
+                                <code>!protection_level 1-4</code>
+                                <span class="command-badge">متقدم</span>
+                            </div>
+                            <p>تحديد مستوى الحماية من 1 إلى 4</p>
+                        </div>
+                        
+                        <div class="command-card">
+                            <div class="command-header">
+                                <code>!set_admin_channel</code>
+                                <span class="command-badge">أساسي</span>
+                            </div>
+                            <p>تحديد قناة الإدارة والتنبيهات</p>
+                        </div>
+                        
+                        <div class="command-card">
+                            <div class="command-header">
+                                <code>!toggle_feature</code>
+                                <span class="command-badge">متقدم</span>
+                            </div>
+                            <p>تفعيل أو تعطيل ميزات الحماية</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="security">
+                    <div class="commands-grid">
+                        <div class="command-card">
+                            <div class="command-header">
+                                <code>!scan_url</code>
+                                <span class="command-badge">فحص</span>
+                            </div>
+                            <p>فحص الروابط للتأكد من أمانها</p>
+                        </div>
+                        
+                        <div class="command-card">
+                            <div class="command-header">
+                                <code>!quarantine @user</code>
+                                <span class="command-badge">حماية</span>
+                            </div>
+                            <p>عزل مستخدم مشبوه مؤقتاً</p>
+                        </div>
+                        
+                        <div class="command-card">
+                            <div class="command-header">
+                                <code>!lockdown</code>
+                                <span class="command-badge">طوارئ</span>
+                            </div>
+                            <p>قفل السيرفر عند حدوث تهديد</p>
+                        </div>
+                        
+                        <div class="command-card">
+                            <div class="command-header">
+                                <code>!security_scan</code>
+                                <span class="command-badge">شامل</span>
+                            </div>
+                            <p>فحص أمني شامل للسيرفر</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="reports">
+                    <div class="commands-grid">
+                        <div class="command-card">
+                            <div class="command-header">
+                                <code>!security_report</code>
+                                <span class="command-badge">تقرير</span>
+                            </div>
+                            <p>تقرير أمني شامل للسيرفر</p>
+                        </div>
+                        
+                        <div class="command-card">
+                            <div class="command-header">
+                                <code>!threat_log</code>
+                                <span class="command-badge">سجلات</span>
+                            </div>
+                            <p>عرض سجل التهديدات المكتشفة</p>
+                        </div>
+                        
+                        <div class="command-card">
+                            <div class="command-header">
+                                <code>!stats</code>
+                                <span class="command-badge">إحصائيات</span>
+                            </div>
+                            <p>إحصائيات سريعة عن الأمان</p>
+                        </div>
+                        
+                        <div class="command-card">
+                            <div class="command-header">
+                                <code>!export_data</code>
+                                <span class="command-badge">تصدير</span>
+                            </div>
+                            <p>تصدير بيانات الأمان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- عن المشروع -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">عن المشروع</h2>
+                    <p class="about-description">
+                        CyberSentinel هو مشروع مفتوح المصدر يهدف إلى توفير حماية متقدمة لسيرفرات Discord العربية. 
+                        تم تطويره بواسطة B2nd9R، طالب أمن سيبراني شغوف بتطوير حلول الحماية.
+                    </p>
+                    
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <i class="fas fa-code-branch"></i>
+                            <div>
+                                <h4>مفتوح المصدر</h4>
+                                <p>كود مفتوح للجميع للمراجعة والتطوير</p>
+                            </div>
+                        </div>
+                        
+                        <div class="about-feature">
+                            <i class="fas fa-rocket"></i>
+                            <div>
+                                <h4>تطوير مستمر</h4>
+                                <p>تحديثات وميزات جديدة بشكل دوري</p>
+                            </div>
+                        </div>
+                        
+                        <div class="about-feature">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <h4>مجتمع داعم</h4>
+                                <p>مجتمع من المطورين والمستخدمين</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-actions">
+                        <a href="https://github.com/B2nd9R/cybersentinel" class="btn btn-outline">
+                            <i class="fab fa-github"></i>
+                            GitHub
+                        </a>
+                        <a href="#" class="btn btn-outline">
+                            <i class="fab fa-discord"></i>
+                            سيرفر الدعم (قريباً)
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="about-visual">
+                    <div class="developer-card">
+                        <div class="developer-avatar">
+                            <img src="https://github.com/B2nd9R.png" alt="B2nd9R">
+                        </div>
+                        <h3>B2nd9R</h3>
+                        <p>مطور ومختص أمن سيبراني</p>
+                        <div class="social-links">
+                            <a href="https://github.com/B2nd9R"><i class="fab fa-github"></i></a>
+                            <a href="https://twitter.com/B2nd9R"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الدعوة للعمل -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">جاهز لحماية سيرفرك؟</h2>
+                <p class="cta-description">انضم لآلاف السيرفرات التي تثق في CyberSentinel</p>
+                <div class="cta-actions">
+                    <a href="https://discord.com/oauth2/authorize?client_id=1376263282305929256&permissions=268545222&integration_type=0&scope=bot" 
+                       class="btn btn-primary btn-large">
+                        <i class="fab fa-discord"></i>
+                        أضف البوت مجاناً
+                    </a>
+                    <a href="https://github.com/B2nd9R/cybersentinel" class="btn btn-outline btn-large">
+                        <i class="fas fa-star"></i>
+                        ⭐ نجمة على GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- التذييل -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>CyberSentinel</span>
+                    </div>
+                    <p>حماية ذكية لسيرفرات Discord</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="#features">المميزات</a></li>
+                        <li><a href="#commands">الأوامر</a></li>
+                        <li><a href="#about">عن المشروع</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>المصادر</h4>
+                    <ul>
+                        <li><a href="https://github.com/B2nd9R/cybersentinel">المستودع على Github</a></li>
+                        <li><a href="https://github.com/B2nd9R/cybersentinel/blob/main/docs/README.md">التوثيق</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 CyberSentinel - جميع الحقوق محفوظة</p>
+                <p>طورت بحب بواسطة 
+                    <a href="https://showcase-website-rvzo.onrender.com/" target="_blank" class="dev-name">بندر</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../static/js/script.js"></script>
 </body>
 </html>
